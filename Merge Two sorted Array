@@ -1,0 +1,44 @@
+Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+The overall run time complexity should be O(log (m+n)).
+Example 1:
+Input: nums1 = [1,3], nums2 = [2]
+Output: 2.00000
+Explanation: merged array = [1,2,3] and median is 2.
+
+
+
+ double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        map<int,int>mp;
+        int n=nums1.size();
+        int m=nums2.size();
+        for(int i=0;i<n;i++)
+        {
+            mp[nums1[i]]++;
+        }
+        for(int i=0;i<m;i++)
+        {
+            mp[nums2[i]]++;
+        }
+        vector<int>v;
+       for(auto i: mp)
+       {
+           while(i.second!=0)
+           { v.push_back(i.first);
+            i.second--;
+           }
+       }
+        int a=v.size();
+        if(a%2!=0)
+        {
+            int x=a/2;
+            return v[x];
+        }
+        else
+        {
+            int y=a/2;
+            double z= double(v[y]+v[y-1])/2;
+            return z;
+        }
+        
+        
+    }
